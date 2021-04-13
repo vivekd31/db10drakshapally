@@ -73,6 +73,75 @@ exports.bakery_view_all_Page = async function(req, res) {
     }
     catch(err){
         res.error(500,`{"error": ${err}}`);
+    }    
+};
+
+// Handle bakery delete on DELETE.
+exports.bakery_delete = async function(req, res) {
+    console.log("delete "  + req.params.id)
+    try {
+        result = await bakery.findByIdAndDelete( req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
     }
 };
+
+// Handle a show one view with id specified by query
+exports.bakery_view_one_Page = async function(req, res) {
+    console.log("single view for id "  + req.query.id)
+    try{
+        result = await bakery.findById( req.query.id)
+        res.render('bakerydetail', 
+{ title: 'Bakery Detail', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for creating a bakery.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.bakery_create_Page =  function(req, res) {
+    console.log("create view")
+    try{
+        res.render('bakerycreate', { title: 'bakery create'});
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for updating a bakery.
+// query provides the id
+exports.bakery_update_Page =  async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+        let result = await bakery.findById(req.query.id)
+        res.render('bakeryupdate', { title: 'bakery Update', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle a delete one view with id from query
+exports.bakery_delete_Page = async function(req, res) {
+    console.log("Delete view for id "  + req.query.id)
+    try{
+        result = await bakery.findById(req.query.id)
+        res.render('bakerydelete', { title: 'bakery Delete', toShow: result });
+    }
+    catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
 

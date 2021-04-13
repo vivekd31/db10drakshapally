@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    h1= title
+
+    - let bakeryid = toShow._id
+    - let bakeryItemname = toShow.Itemname
+    - let bakeryQuantity = toShow.Quantity
+    - let bakeryprice = toShow.price
+
+    div
+        div.row
+            div(class='costumeAttr mr-3') bakery ID is:
+            div(id="bakeryid") #{bakeryid}
+        div.row
+            div(class='costumeAttr mr-3') bakery Itemname is:
+            div #{bakeryItemname}
+        div.row
+            div(class='costumeAttr mr-3') bakery Quantity is:
+            div #{bakeryQuantity}
+        div.row
+            div(class='costumeAttr mr-3') bakery price is:
+            div #{bakeryprice}
+        div.row
+            button(class='btn btn-danger btn-md m-auto'  type="Submit" onclick=`deletebakery()`) Delete
+
+    script.
+        function deletebakery() {
+            let value=document.getElementById("bakeryid").innerHTML;
+            console.log(value)
+            // TODO do something here to show user that form is being submitted
+            fetch('/resource/bakery/'+ value, {
+                method: 'DELETE'
+            }).then((resp) => {
+                return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Delete succeded")
+                 // TODO handle body
+            }).catch((error) => {
+                // TODO handle error
+                alert("Delete failed " + error )
+            });
+        };

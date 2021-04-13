@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+
+  - let bakeryid = toShow._id
+  - let bakeryItemname = toShow.Itemname
+  - let bakeryQuantity = toShow.Quantity
+  - let bakeryprice = toShow.price
+
+  div
+    div.row
+      div(class='costumeAttr mr-3') bakery ID is:
+      div #{bakeryid}
+    div.row
+      div(class='costumeAttr mr-3') bakery Itemname is:
+      div #{bakeryItemname}
+    div.row
+      div(class='costumeAttr mr-3') bakery Quantity is:
+      div #{bakeryQuantity}
+    div.row
+      div(class='costumeAttr mr-3') bakery price is:
+      div #{bakeryprice}

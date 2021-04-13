@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1= title
+
+  form(id='bakeryForm', action="/resource/bakery", method="POST")
+    div.form-group
+        label.costumeAttr(for='Itemname') bakery Itemname
+        input#Itemname(type='text', name='Itemname')
+    div.form-group
+        label.costumeAttr(for='Quantity') bakery Quantity
+        input#Quantity(type='number', name='Quantity')
+    div.form-group
+        label.costumeAttr(for='price') bakery price
+        input#price(type='text', name='price')
+    input(type="submit")
+
+  script.
+    document.forms['bakeryForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed " + error )
+      });
+    });
