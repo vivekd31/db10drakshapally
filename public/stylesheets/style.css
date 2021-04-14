@@ -6,9 +6,51 @@ body {
 a {
   color: #00B7FF;
 }
-
 .costumeAttr {
-  background-color: aquamarine;
-  width: 120px;
+  background-color: rgb(223, 29, 126);
+  width: 150px;
+  margin: 6px;
+  text-align: center;
+  color: white;
+  padding: 7px;
+  border-radius: 5px;
+  font-weight:normal;
+
 }
 
+.nameone {
+  width: 150px;
+  margin: 6px;
+  text-align: center;
+  padding: 7px;
+  border-radius: 5px;
+  font-weight:normal;
+
+}
+
+#titlestyle{
+  color: #e71a25;
+  font-weight: 500;
+  font-family:'Times New Roman', Times, serif;
+  text-decoration:solid;
+}
+
+.variety{
+  margin-right: 4px;
+  margin-bottom: 0;
+  padding: 7px;
+  justify-content:center;
+  font-weight: bold;
+  border-bottom: 3px solid rgb(126, 7, 206);
+  border-left: 3px solid  rgb(19, 29, 6);
+  background-color: rgb(10, 141, 21);
+  border-radius: 3px;
+}
+.stylesheetnew{
+    border-top: 3px solid rgb(235, 177, 19);
+    width: 60%;
+}
+.variety:hover{
+  background-color: rgb(167, 7, 105);
+  color: rgb(21, 94, 190);
+}

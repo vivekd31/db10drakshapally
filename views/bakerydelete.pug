@@ -1,43 +1,55 @@
 extends layout
 
 block content
-    h1= title
+  h1= title
 
+  if (toShow == null)
+    h2 No instance to delete
+  else
     - let bakeryid = toShow._id
     - let bakeryItemname = toShow.Itemname
     - let bakeryQuantity = toShow.Quantity
     - let bakeryprice = toShow.price
+    - let actionid = "/resource/bakery/" + bakeryid
 
+    script let actionid = "#{actionid}"
     div
-        div.row
-            div(class='costumeAttr mr-3') bakery ID is:
-            div(id="bakeryid") #{bakeryid}
-        div.row
-            div(class='costumeAttr mr-3') bakery Itemname is:
-            div #{bakeryItemname}
-        div.row
-            div(class='costumeAttr mr-3') bakery Quantity is:
-            div #{bakeryQuantity}
-        div.row
-            div(class='costumeAttr mr-3') bakery price is:
-            div #{bakeryprice}
-        div.row
-            button(class='btn btn-danger btn-md m-auto'  type="Submit" onclick=`deletebakery()`) Delete
+      div.row
+        div(class='costumeAttr mr-3') bakery ID is:
+        div(class='newAttr') #{bakeryid}
+      div.row
+        div(class='costumeAttr mr-3') bakery Itemname is:
+        div(class='newAttr') #{bakeryItemname}
+      div.row
+        div(class='costumeAttr mr-3') bakery Quantity is:
+        div(class='newAttr') #{bakeryQuantity}
+      div.row
+        div(class='costumeAttr mr-3') bakery price is:
+        div(class='newAttr') #{bakeryprice}
+      
 
-    script.
-        function deletebakery() {
-            let value=document.getElementById("bakeryid").innerHTML;
-            console.log(value)
-            // TODO do something here to show user that form is being submitted
-            fetch('/resource/bakery/'+ value, {
-                method: 'DELETE'
-            }).then((resp) => {
-                return resp.json(); // or resp.text() or whatever the server sends
-            }).then((body) => {
-                alert("Delete succeded")
-                 // TODO handle body
-            }).catch((error) => {
-                // TODO handle error
-                alert("Delete failed " + error )
-            });
-        };
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+  script.
+    function cancel() {
+      // Go back to the home page for the costume collection
+      window.location.href='/bakery'
+    }
+  script.
+    function deleteOnid() {
+      console.log("Deleting the Resource")
+      // delete first
+      fetch(actionid, {
+        method: 'DELETE'      // Don't need a body for the delete
+      }).then((resp) => {
+        return resp.json();   // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/bakery'
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Delete failed " + error )
+      });
+    }
