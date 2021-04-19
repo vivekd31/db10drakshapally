@@ -2,17 +2,18 @@ extends layout
 
 block content
   h1= title
-  p Welcome to the bakery pug
-  div(class="container-fluid")
-        div(class="row")
-            -
-                let bakery=results
-            each v,index in bakery
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.Itemname}
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.Quantity}
-                div(class="col-sm-2" onclick=`buy(${index})`) #{v.price}
-  script.                
-        function buy(intemNo)
-        {
-              alert(`you purchased Item ${intemNo+1}`)
-        }
+  - let bakery=results;
+  div(class="container-fluid mt-3")
+   div(class="row m-1")
+    each element in bakery
+     - let destination=`buy(\"/bakery/update?id=${element._id}\")`
+     div(class="col-sm-6 bg-danger m-1 p-3") Bakery #{element.Itemname} - #{element.Quantity} - #{element.price}
+      button.btn( class="btn-success ml-2", onclick=destination ) Update
+  
+   script.
+    function buy(path){
+        window.location.href=path
+
+        //alert(`You purchased Item ${a+1}`)
+      }
+  
